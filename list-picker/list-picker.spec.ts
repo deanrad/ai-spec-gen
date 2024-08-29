@@ -11,17 +11,17 @@ describe("filterList", () => {
       expect(filterList(list, 3)).toEqual(["banana"]);
     });
 
+    test("returns the item at the negative index from the end when criteria is a negative number", () => {
+      const list = ["apple", "aardvark", "banana", "cheddar"];
+      expect(filterList(list, -1)).toEqual(["cheddar"]); // Last item
+      expect(filterList(list, -2)).toEqual(["banana"]); // Second to last item
+      expect(filterList(list, -4)).toEqual(["apple"]); // Fourth to last item (first item in this case)
+    });
+
     test("returns items that contain the substring when criteria is a string", () => {
       const list = ["apple", "aardvark", "banana"];
       expect(filterList(list, "aa")).toEqual(["aardvark"]);
       expect(filterList(list, "a")).toEqual(["apple", "aardvark", "banana"]);
-    });
-
-    test("returns the item at the negative index from the end when criteria is a negative number", () => {
-      const list = ["apple", "aardvark", "banana", "cheddar"];
-      expect(filterList(list, -1)).toEqual(["cheddar"]);
-      expect(filterList(list, -2)).toEqual(["banana"]);
-      expect(filterList(list, -4)).toEqual(["apple"]);
     });
   });
 
@@ -35,6 +35,7 @@ describe("filterList", () => {
       const list = ["apple"];
       expect(filterList(list, 0)).toEqual([]);
       expect(filterList(list, 2)).toEqual([]);
+      expect(filterList(list, -5)).toEqual([]); // Negative index out of bounds
     });
 
     test("returns an empty array when criteria is a string not found in any item", () => {
@@ -45,6 +46,10 @@ describe("filterList", () => {
     test("returns an empty array if the criteria number is greater than list length", () => {
       const list = ["apple", "banana"];
       expect(filterList(list, 5)).toEqual([]);
+    });
+
+    test("returns an empty array if the criteria number is less than -list length", () => {
+      const list = ["apple", "banana"];
       expect(filterList(list, -3)).toEqual([]);
     });
   });
