@@ -16,6 +16,13 @@ describe("filterList", () => {
       expect(filterList(list, "aa")).toEqual(["aardvark"]);
       expect(filterList(list, "a")).toEqual(["apple", "aardvark", "banana"]);
     });
+
+    test("returns the item at the negative index from the end when criteria is a negative number", () => {
+      const list = ["apple", "aardvark", "banana", "cheddar"];
+      expect(filterList(list, -1)).toEqual(["cheddar"]);
+      expect(filterList(list, -2)).toEqual(["banana"]);
+      expect(filterList(list, -4)).toEqual(["apple"]);
+    });
   });
 
   describe("Edge Cases", () => {
@@ -38,11 +45,7 @@ describe("filterList", () => {
     test("returns an empty array if the criteria number is greater than list length", () => {
       const list = ["apple", "banana"];
       expect(filterList(list, 5)).toEqual([]);
-    });
-
-    test("returns an empty array if the criteria number is less than 1", () => {
-      const list = ["apple", "banana"];
-      expect(filterList(list, 0)).toEqual([]);
+      expect(filterList(list, -3)).toEqual([]);
     });
   });
 
